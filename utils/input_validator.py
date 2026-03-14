@@ -2,6 +2,8 @@ import os
 import json
 class Validator:
     def file_validator(self,path):
+        """ This function check if the file path is correct and the extantion of the file"""
+        
         if not os.path.exists(path):
             raise ValueError(f"The specified path does not exist.\nPath: {path}")
         if not os.path.isfile(path):
@@ -10,13 +12,19 @@ class Validator:
         if ext.lower() !='.pdf':
             raise ValueError(f"please provide a valid PDF file path.\nPath: {path}")
         return True
+    
     def dir_validator(self, path):
+        """ This function validate if the provided path is exist or not"""
+
         if not os.path.exists(path):
             raise ValueError(f"The specified path does not exist.\nPath: {path}")
         if not os.path.isdir(path):
             raise ValueError(f"Please provide a valid folder path.\nPath: {path}")
         return True
+    
     def history_validator(self, path):
+        """ This function validate the existance of data/history and create one if not"""
+
         file_path = os.path.abspath(path)
         dir_path = os.path.split(file_path)[0]
         if not os.path.exists(dir_path):

@@ -6,6 +6,7 @@ from tabulate import tabulate
 from features.history_manager import add_history
 
 def filter_pdf(path:str)->None:
+    """ This function manages scanning a folder and creating a record format for search history"""
     filter_path=f'{path}/**/*.pdf'
     files = glob.glob(filter_path,recursive=True)
     cols = ["No", "File name", "Path"]

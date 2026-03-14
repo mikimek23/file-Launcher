@@ -6,6 +6,7 @@ from features.history_manager import  display_history
 
 
 if __name__ == "__main__":
+    """accept th command and path(arguments) from cli_parser function and dispatch command"""
     command, path = cli_parser()
     if (command== 'open'):
         try:
