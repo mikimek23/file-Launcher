@@ -3,8 +3,9 @@ import json
 import glob
 from datetime import datetime
 from tabulate import tabulate
+from features.history_manager import add_history
 
-def filter_pdf(path):
+def filter_pdf(path:str)->None:
     filter_path=f'{path}/**/*.pdf'
     files = glob.glob(filter_path,recursive=True)
     cols = ["No", "File name", "Path"]
@@ -15,8 +16,4 @@ def filter_pdf(path):
     print(tabulate(rows,cols,tablefmt="fancy_grid"))
     search_time = datetime.now().isoformat(sep=' ', timespec='seconds')
     new_record = {"path":path,"date":search_time}
-    with open('./data/history.json', 'r') as f:
-        history = json.load(f)
-    history["search_history"].append(new_record)
-    with open('./data/history.json','w') as f:
-        json.dump(history, f)
+    add_history( "search history", new_record)

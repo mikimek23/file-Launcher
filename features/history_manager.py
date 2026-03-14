@@ -2,12 +2,24 @@ import json
 import os
 from tabulate import tabulate
 from utils.input_validator import Validator
-def add_history(record):
-    Validator().history_validator('./data/history.json')
-    print(record)
-# def display_history():
-#     with open("./data/history.json", 'r') as f:
-#         data = json.load(f)
-#     for history in data:
-#         print(f"\n{'='*80}\n||{history.center(77)}||\n{'='*80}")
-#         print(tabulate(data[history], headers="keys",tablefmt='fancy_grid'))
+def add_history(destnation,record):
+    path='./data/history.json'
+    Validator().history_validator(path)
+    with open(path,'r') as file:
+        history = json.load(file)
+    history[destnation].append(record)
+    with open(path, 'w') as file:
+        json.dump(history,file, indent=4)
+        print("History recorded!")
+def display_history():
+    try:
+        with open("./data/history.json", 'r') as file:
+            histories = json.load(file)
+            print(histories)
+    except json.decoder.JSONDecodeError as e:
+        print(f"Error: History Not found.")
+    for history in histories:
+        print(f"\n{'='*80}\n||{history.center(77)}||\n{'='*80}")
+        if not histories[history]:
+            print("No record".center(77))
+        print(tabulate(histories[history], headers="keys",tablefmt='fancy_grid'))

@@ -26,3 +26,7 @@ class Validator:
             with open(file_path, 'w') as file:
                 data = json.dumps({"opend files":[], "search history":[]},indent=4)
                 file.write(data)
+        if os.path.getsize(file_path)==0:
+             with open(file_path, 'w') as file:
+                data = json.dumps({"opend files":[], "search history":[]},indent=4)
+                file.write(data)
