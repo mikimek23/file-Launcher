@@ -1,5 +1,5 @@
 import os
-
+import json
 class Validator:
     def file_validator(self,path):
         if not os.path.exists(path):
@@ -16,3 +16,13 @@ class Validator:
         if not os.path.isdir(path):
             raise ValueError(f"Please provide a valid folder path.\nPath: {path}")
         return True
+    def history_validator(self, path):
+        file_path = os.path.abspath(path)
+        dir_path = os.path.split(file_path)[0]
+        if not os.path.exists(dir_path):
+            os.makedirs(dir_path)
+            print("file created")
+        if not os.path.exists(file_path):
+            with open(file_path, 'w') as file:
+                data = json.dumps({"opend files":[], "search history":[]},indent=4)
+                file.write(data)
