@@ -2,7 +2,7 @@ from cli import cli_parser
 from utils.input_validator import Validator
 from features.pdf_launcher import open_file
 from features.pdf_searcher import filter_pdf
-from features.history_manager import display_history
+from features.history_manager import  display_history
 
 
 if __name__ == "__main__":
