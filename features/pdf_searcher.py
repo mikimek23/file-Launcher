@@ -2,15 +2,17 @@ import os
 import json
 import glob
 from datetime import datetime
+from tabulate import tabulate
 
 def filter_pdf(path):
     filter_path=f'{path}/**/*.pdf'
     files = glob.glob(filter_path,recursive=True)
-    print(f"{'filename'.center(86)}| {'path'.center(82)}")
-    print('_'*200,'\n')
+    cols = ["No", "File name", "Path"]
+    rows =[]
     for role, filepath in enumerate(files, 1):
         filename = os.path.basename(filepath)
-        print(f"{role:0>2}. {filename:<82}| {filepath:<82}")
+        rows.append([role, filename, filepath])
+    print(tabulate(rows,cols,tablefmt="fancy_grid"))
     search_time = datetime.now().isoformat(sep=' ', timespec='seconds')
     new_record = {"path":path,"date":search_time}
     with open('./data/history.json', 'r') as f:
@@ -18,4 +20,3 @@ def filter_pdf(path):
     history["search_history"].append(new_record)
     with open('./data/history.json','w') as f:
         json.dump(history, f)
-        print(history["search_history"])
