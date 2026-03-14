@@ -1,6 +1,11 @@
 import argparse
 import os
-def cli_parser():
+def cli_parser()->tuple:
+    """ 
+    This function acceptes a command line inputs and return a tuple (command, argument)
+    command-> open, search, recent 
+    arguments -> path to file(for open command), folder( for search command) and (None for recent command)
+    """
     parser = argparse.ArgumentParser(description="PDF Launcher CLI Tool")
     commands = parser.add_subparsers(dest='command', help="availeble commands", required=True)
     open_pdf = commands.add_parser('open', help='open a file')
